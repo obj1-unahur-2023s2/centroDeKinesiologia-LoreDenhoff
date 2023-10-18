@@ -1,0 +1,20 @@
+import pacientes.*
+import aparatos.*
+
+describe "Test parte 2"{
+	const magneto = new Magneto()
+	const bici = new Bicicleta()
+	const mini = new Minitramp()
+	const leonardo = new Paciente (edad=40 , fortaleza=20 , dolor=10, rutina=[bici, mini, bici, magneto] )
+	const milena = new Paciente (edad=3 , fortaleza=50 , dolor=30, rutina= [magneto, bici])
+
+	test "Leonardo puede hacer la rutina"{
+		leonardo.hacerRutina()
+		assert.that(leonardo.puedeHacerRutina())
+		assert.equals(1.8, leonardo.dolor())	
+		assert.equals(30, leonardo.fortaleza())
+		}
+	test "Milen ano puede hacer la rutina"{
+		assert.notThat(milena.puedeHacerRutina())
+	}
+}
