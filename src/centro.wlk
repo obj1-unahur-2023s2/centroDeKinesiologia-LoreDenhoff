@@ -5,6 +5,10 @@ object centro{
 	const aparatos=[]
 	const pacientes=[]
 	
+	method agregarUnAparato(unAparato){aparatos.add(unAparato)}
+	method agregarAparatos (listAparatos){ aparatos.addAll([listAparatos])}
+	method agregarUnPaciente(unPaciente){aparatos.add(unPaciente)}
+	method agregarPacientes (listPacientes){ aparatos.addAll([listPacientes])}
 	method colorAparatos()= aparatos.map({a => a.color()}).asSet()
 	method menoresDeOcho()= pacientes.filter({p =>p.edad()<8})
 	method cantHacenRutina()= pacientes.count({p => !p.puedeHacerRutina()})

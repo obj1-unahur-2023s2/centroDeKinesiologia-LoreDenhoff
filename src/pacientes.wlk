@@ -5,7 +5,8 @@ class Paciente{
 	var property fortaleza=0
 	var property dolor=0
 	const rutina=[] 
-		
+	
+	method agregarARutina(unAparato) {rutina.add(unAparato)} 
 	method puedeUsar(unAparato) = unAparato.puedeUsar(self)
 	method usarAparato(unAparato){unAparato.usar()}
 	method puedeHacerRutina()= rutina.all({a => a.puedeUsar(self)})
@@ -31,10 +32,13 @@ class Caprichoso inherits Paciente{
 }
 
 class RapidaRecuperacion inherits Paciente{
-		var gradoDolor
 		
 		override method hacerRutina() {
 		super()
-		self.disminuirDolor(gradoDolor)
+		self.disminuirDolor(elDolor.gradoDolor())
 	}
+}
+
+object elDolor{
+	const property gradoDolor=3
 }

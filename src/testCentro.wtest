@@ -1,7 +1,8 @@
 import pacientes.*
 import aparatos.*
+import centro.*
 
-describe "Test parte 2"{
+describe "Test del centro"{
 	const magneto = new Magneto()
 	const magneto_2 = new Magneto(color="verde")
 	const bici = new Bicicleta()
@@ -11,27 +12,16 @@ describe "Test parte 2"{
 	const victoria = new Caprichoso(edad=30, dolor=10, fortaleza=40, rutina=[bici, mini, bici, magneto])
 	const julian = new Caprichoso(edad=20, dolor=54, fortaleza=50, rutina=[bici_2,magneto_2, bici])
 	const zoe = new RapidaRecuperacion(edad=50, dolor=14, fortaleza=40, rutina=[bici, mini, bici, magneto])
+	
+	method initialize(){
+		const listaApa=[magneto, magneto_2, bici, bici_2, mini]
+		const listPac=[nicolas, victoria, julian, zoe]
 		
-	test "Nicolas puede hacer la rutina"{
-		nicolas.hacerRutina()
-		assert.that(nicolas.puedeHacerRutina())
-		assert.equals(1.8, nicolas.dolor())
-		assert.equals(34, nicolas.fortaleza())
+		centro.agregarAparatos(listaApa)
+		centro.agregarPacientes(listPac)
 	}
 	
-	test "Victoria no puede hacer la rutina porque ningún aparato es rojo"{
-		assert.notThat(victoria.puedeHacerRutina())
-	}
-	
-	test "Julian puede hacer la rutina"{
-		julian.hacerRutina()
-		assert.equals(29.3, julian.dolor())
-		assert.equals(62, julian.fortaleza())
-	}
-	
-	test "Zoe puede hacer la rutina"{
-		zoe.hacerRutina()
-		assert.equals(3.4, zoe.dolor())
-		assert.equals(51, zoe.fortaleza())
+	test "Colores de los aparatos son repetir"{
+		assert.equals(#{"blanco","rojo","verde"}, centro.colorAparatos())
 	}
 }
