@@ -1,44 +1,55 @@
 import aparatos.*
 
 class Paciente{
-	var property edad=0
-	var property fortaleza=0
-	var property dolor=0
-	const rutina=[] 
+	const property edad
+	var property fortaleza
+	var property dolor
+	const rutina=[]
 	
-	method agregarARutina(unAparato) {rutina.add(unAparato)} 
-	method puedeUsar(unAparato) = unAparato.puedeUsar(self)
-	method usarAparato(unAparato){unAparato.usar()}
-	method puedeHacerRutina()= rutina.all({a => a.puedeUsar(self)})
-	method hacerRutina() {rutina.forEach({a => a.usar(self)})}
-	method disminuirDolor(unValor){
-		dolor =0.max(dolor-unValor)
+	method puedeUsar(unAparato)= unAparato.puedeSerUsado(self)
+	
+	method usarAparato(unAparato){
+		if(!self.puedeUsar(unAparato)){
+			self.error("El paciente no puede usar el aparato")
+		}
+		fortaleza += unAparato.sumaFortaleza(self)
+		dolor = 0.max(dolor-unAparato.restaDolor(self))
+	}
+	
+	method cargarRutina(lista){rutina.addAll(lista)}
+	
+	method puedeHacerRutina()= rutina.all({a => a.puedeSerUsado(self)})
+	
+	method hacerRutina(){
+		if(!self.puedeHacerRutina())
+			self.error("No puede usar todos los aparatos")
+		else
+			rutina.forEach({a => self.usarAparato(a)})
 	}
 }
 
 class Resistente inherits Paciente{
-	override method hacerRutina() {
+	override method hacerRutina(){
 		super()
 		fortaleza += rutina.size()
 	}
 }
 
 class Caprichoso inherits Paciente{
-	override method puedeHacerRutina()= super() && rutina.any({a => a.color().equals("rojo")})
-		override method hacerRutina() {
-		super()
-		super()
-		}
+	method aparatoRojo()= rutina.any({a => a.color().equals("rojo")})
+	override method puedeHacerRutina() = super() && self.aparatoRojo()
+	
+	override method hacerRutina(){super() super()}
 }
 
-class RapidaRecuperacion inherits Paciente{
-		
-		override method hacerRutina() {
+class RapidaRec inherits Paciente{
+		override method hacerRutina(){
 		super()
-		self.disminuirDolor(elDolor.gradoDolor())
+		dolor -= 0.max (valor.recuperacion())
 	}
 }
 
-object elDolor{
-	const property gradoDolor=3
+object valor{
+	var property recuperacion=3
 }
+

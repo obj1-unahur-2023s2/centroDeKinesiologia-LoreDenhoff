@@ -1,0 +1,40 @@
+import aparatos.*
+import pacientes.*
+
+describe "Test segunda parte"{
+	const magneto = new Magneto ()
+	const magneto_1 = new Magneto (color="verde")
+	const bici = new Bicicleta()
+	const bici_1 = new Bicicleta(color="rojo")
+	const mini = new Minitramp()
+	const nicolas = new Resistente (edad= 40, fortaleza= 20, dolor=10, rutina=[bici, mini, bici, magneto])
+	const victoria = new Caprichoso (edad= 30, fortaleza= 40, dolor=10, rutina=[magneto, bici])
+	const julian = new Caprichoso (edad= 20, fortaleza= 50, dolor=54, rutina=[bici_1, magneto_1, bici])
+	const zoe = new RapidaRec (edad= 50, fortaleza= 40, dolor=14, rutina=[bici, mini, bici, magneto])
+	
+	test "Nicolas"{
+		nicolas.hacerRutina()
+		assert.that(nicolas.puedeHacerRutina())
+		assert.equals(1.8, nicolas.dolor())
+		assert.equals(34, nicolas.fortaleza())
+	}
+	
+		test "Victoria "{
+		assert.notThat(victoria.puedeHacerRutina())
+	}
+
+	test "Julian"{
+		julian.hacerRutina()
+		assert.that(julian.puedeHacerRutina())
+		assert.equals(29.3, julian.dolor())
+		assert.equals(62, julian.fortaleza())
+	}	
+	test "zoe"{
+		valor.recuperacion(2)		
+		zoe.hacerRutina()
+		assert.that(zoe.puedeHacerRutina())
+		assert.equals(3.4, zoe.dolor())
+		assert.equals(51, zoe.fortaleza())
+	}		
+}
+
